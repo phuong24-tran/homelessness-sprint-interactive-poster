@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EWSS Pathway – Interactive Poster</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1024;
+      --accent: #ff8a3d;
+      --accent-soft: rgba(255, 138, 61, 0.15);
+      --accent-2: #43c6ff;
+      --text: #f9fafb;
+      --muted: #cbd5f5;
+      --card: #111827;
+      --radius-lg: 1.5rem;
+      --radius-md: 1rem;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.4);
+      --transition: all 0.25s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top left, #1f2937, #020617 55%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated background orbs */
+    .orbs {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.35;
+      animation: float 18s ease-in-out infinite alternate;
+    }
+    .orb--orange {
+      background: #ff8a3d;
+      width: 320px;
+      height: 320px;
+      top: -80px;
+      right: -120px;
+    }
+    .orb--blue {
+      background: #43c6ff;
+      width: 280px;
+      height: 280px;
+      bottom: -50px;
+      left: -120px;
+      animation-delay: 2s;
+    }
+    .orb--pink {
+      background: #ec4899;
+      width: 220px;
+      height: 220px;
+      top: 40%;
+      left: 60%;
+      animation-delay: 4s;
+    }
+    @keyframes float {
+      0% { transform: translate3d(0,0,0) scale(1); }
+      100% { transform: translate3d(40px,-40px,0) scale(1.12); }
+    }
+
+    /* Layout */
+    .app {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Side nav */
+    .sidebar {
+      background: linear-gradient(180deg, rgba(15,23,42,0.95), rgba(2,6,23,0.98));
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.25rem;
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 1.5rem;
+      align-self: flex-start;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      color: var(--accent-2);
+    }
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(15,23,42,0.9);
+      border-radius: 999px;
+      padding: 0.28rem 0.8rem;
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 6px rgba(34,197,94,0.25);
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .nav-button {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    .nav-button span.icon {
+      font-size: 1rem;
+    }
+    .nav-button:hover {
+      background: rgba(31,41,55,0.9);
+      color: var(--text);
+      transform: translateX(4px);
+    }
+    .nav-button.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .nav-footer {
+      margin-top: 1.5rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      border-top: 1px dashed rgba(148,163,184,0.4);
+      padding-top: 0.8rem;
+    }
+
+    /* Main content */
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    section {
+      background: rgba(15,23,42,0.92);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148,163,184,0.2);
+      scroll-margin-top: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(248,250,252,0.05), transparent 55%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease-out;
+    }
+    section.section--active::before {
+      opacity: 1;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--accent-2);
+      margin-bottom: 0.15rem;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+    .section-lead {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+    }
+
+    /* Hero */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 1.25rem;
+      align-items: center;
+    }
+    @media (max-width: 800px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .hero-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+    .hero-title {
+      font-size: 1.6rem;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .hero-tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .stat-card {
+      background: rgba(15,23,42,0.98);
+      border-radius: var(--radius-md);
+      padding: 1rem 1rem 0.9rem;
+      border: 1px solid rgba(248,250,252,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(255,138,61,0.18), transparent 60%);
+      mix-blend-mode: screen;
+    }
+    .stat-number {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+    .stat-chip {
+      margin-top: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      background: rgba(15,23,42,0.9);
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Cards / interaction */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.6rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.8rem;
+      border: 1px solid rgba(148,163,184,0.3);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .card:hover {
+      transform: translateY(-2px) translateZ(0) scale(1.01);
+      border-color: var(--accent);
+      box-shadow: 0 12px 35px rgba(15,23,42,0.6);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.35rem;
+    }
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .card-pill {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--muted);
+    }
+    .card-body {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.55;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: max-height 0.28s ease-out, opacity 0.25s ease-out, transform 0.25s ease-out;
+    }
+    .card--expanded .card-body {
+      max-height: 300px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card-hint {
+      font-size: 0.7rem;
+      color: rgba(148,163,184,0.85);
+      margin-top: 0.25rem;
+    }
+
+    /* Pills row */
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+      margin-bottom: 0.4rem;
+    }
+    .pill {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: rgba(15,23,42,0.95);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .pill:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .pill.active {
+      background: var(--accent);
+      color: #020617;
+      border-color: transparent;
+    }
+
+    .pill-details {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      line-height: 1.6;
+      min-height: 2.4rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: grid;
+      gap: 0.7rem;
+      margin-top: 0.6rem;
+    }
+    .timeline-item {
+      border-left: 2px solid rgba(148,163,184,0.6);
+      padding-left: 0.75rem;
+      position: relative;
+    }
+    .timeline-bullet {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      position: absolute;
+      left: -6px;
+      top: 0.15rem;
+      box-shadow: 0 0 0 8px rgba(255,138,61,0.18);
+    }
+    .timeline-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(248,250,252,0.85);
+      margin-bottom: 0.1rem;
+    }
+    .timeline-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.25rem;
+    }
+    .tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.96);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--muted);
+    }
+
+    .small-text {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+<div class="orbs">
+  <div class="orb orb--orange"></div>
+  <div class="orb orb--blue"></div>
+  <div class="orb orb--pink"></div>
+</div>
+
+<div class="app">
+  <!-- SIDEBAR NAV -->
+  <aside class="sidebar">
+    <div class="logo">E Double I</div>
+    <div class="subtitle">
+      Early Intervention Innovators<br/>
+      Group 17 – Early Interventions & Shelter Diversion
+    </div>
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      <span>School-Based EWSS Pathway</span>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-button active" data-target="hero">
+        <span class="icon">🏠</span> Overview
+      </button>
+      <button class="nav-button" data-target="idea">
+        <span class="icon">💡</span> The Idea
+      </button>
+      <button class="nav-button" data-target="how">
+        <span class="icon">🧭</span> How It Works
+      </button>
+      <button class="nav-button" data-target="implementation">
+        <span class="icon">📅</span> Implementation & Budget
+      </button>
+      <button class="nav-button" data-target="outcomes">
+        <span class="icon">📈</span> Outcomes
+      </button>
+      <button class="nav-button" data-target="equity">
+        <span class="icon">⚖️</span> Equity Lens
+      </button>
+      <button class="nav-button" data-target="partners">
+        <span class="icon">🤝</span> Partners
+      </button>
+    </nav>
+
+    <div class="nav-footer">
+      Tip: click any card to expand details.  
+      Use this site live for interaction, then export key visuals into your PDF poster.
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <!-- HERO -->
+    <section id="hero" class="section section--active">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-highlight">
+            <span>Preventing Youth Homelessness in Ottawa</span>
+          </div>
+          <h1 class="hero-title">
+            School-Based Early Warning Screening & Support (EWSS) Pathway
+          </h1>
+          <p class="hero-tagline">
+            Youth homelessness in Ottawa doesn’t begin at the shelter door — it begins in our classrooms.
+            EWSS uses early mental health screening, referral pathways, and coordinated supports to act
+            <strong>before</strong> crisis hits.
+          </p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">40%</div>
+          <div class="stat-label">
+            of homeless youth in Canada experienced their first episode before age 16.<br/>
+            <span style="font-size:0.75rem;">Schools are a critical site for early detection and prevention.</span>
+          </div>
+          <div class="stat-chip">
+            🎯 Upstream / Geelong-inspired early-intervention model
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IDEA -->
+    <section id="idea" class="section">
+      <div class="eyebrow">The Idea</div>
+      <h2 class="section-title">Why EWSS? A school-based early-warning pathway</h2>
+      <p class="section-lead">
+        The EWSS Pathway identifies distress in students aged 9–12, connects them with timely supports,
+        and stabilizes family conflict before it escalates into school disengagement or homelessness.
+      </p>
+
+      <div class="card-grid">
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Problem</div>
+            <div class="card-pill">Before the shelter</div>
+          </div>
+          <div class="card-body">
+            Teachers often notice early warning signs—absenteeism, mood changes, conflict—but there is
+            no coordinated mechanism in Ottawa to respond before risk escalates into crisis or shelter entry.
+          </div>
+          <div class="card-hint">Click to reveal</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Solution</div>
+            <div class="card-pill">EWSS Pathway</div>
+          </div>
+          <div class="card-body">
+            A structured screening and support pathway embedded in schools, informed by the
+            Upstream/Geelong framework, that flags risk early, routes students to appropriate services,
+            and coordinates follow-up across school and community partners.
+          </div>
+          <div class="card-hint">Click to reveal</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Who it serves</div>
+            <div class="card-pill">Youth 9–12 & families</div>
+          </div>
+          <div class="card-body">
+            Students aged 9–12 in Ottawa public schools and their caregivers, including those facing
+            mental health distress, family conflict, financial instability, and school disengagement.
+          </div>
+          <div class="card-hint">Click to reveal</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Objective</div>
+            <div class="card-pill">Prevention</div>
+          </div>
+          <div class="card-body">
+            Identify early signs of distress, intervene before behavioural or mental-health issues escalate,
+            and coordinate supports to reduce pathways into youth homelessness and shelters.
+          </div>
+          <div class="card-hint">Click to reveal</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section">
+      <div class="eyebrow">Pathway</div>
+      <h2 class="section-title">How the EWSS Pathway works</h2>
+      <p class="section-lead">
+        Three core components work together as a continuous pathway from early detection to
+        coordinated support.
+      </p>
+
+      <div class="card-grid">
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">1. Early mental-health screening</div>
+            <div class="card-pill">Screen</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;margin-top:0.2rem;">
+              <li>Brief, validated screening tools for students aged 9–12.</li>
+              <li>Run periodically in class with clear consent & confidentiality protocols.</li>
+              <li>Flags early signs of distress before disengagement or dropout.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click for details</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">2. Referral pathway</div>
+            <div class="card-pill">Link</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;margin-top:0.2rem;">
+              <li>Clear thresholds for when and how to refer students.</li>
+              <li>Warm hand-offs to school social workers, psychologists, and community partners.</li>
+              <li>Family-inclusive processes to stabilize conflict early.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click for details</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">3. Coordinated support network</div>
+            <div class="card-pill">Wrap-around</div>
+          </div>
+          <div class="card-body">
+            <p>
+              A network of community partners provides wrap-around support:
+            </p>
+            <ul style="padding-left:1rem;margin-top:0.2rem;">
+              <li>School social workers & psychologists – frontline & clinical support.</li>
+              <li>BGC Ottawa, YSB, Crossroads/YouTurn, Voice Found, Operation Come Home.</li>
+              <li>Family mediation, tutoring, housing & employment supports.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click for details</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPLEMENTATION -->
+    <section id="implementation" class="section">
+      <div class="eyebrow">Implementation & Budget</div>
+      <h2 class="section-title">From pilot to proof of impact</h2>
+      <p class="section-lead">
+        A four-phase pilot with the Ottawa-Carleton District School Board (OCDSB) and Upstream/Geelong
+        mentorship, backed by a modest budget.
+      </p>
+
+      <div class="timeline">
+        <div class="timeline-item card js-card">
+          <div class="timeline-bullet"></div>
+          <div class="timeline-label">Phase 1 – Months 1–3</div>
+          <div class="timeline-meta"><strong>Approval & Initiation</strong></div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Secure OCDSB ethics approval, anonymity and data-protection mechanisms.</li>
+              <li>Formal mentorship link with Upstream/Geelong.</li>
+              <li>Select pilot school & ~100 students for initial cohort.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <div class="timeline-item card js-card">
+          <div class="timeline-bullet"></div>
+          <div class="timeline-label">Phase 2 – Month 4</div>
+          <div class="timeline-meta"><strong>Survey & tool design</strong></div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Literature review & Ottawa-specific data from BGC, YSB, Crossroads, etc.</li>
+              <li>Exploratory Factor Analysis to identify risk clusters.</li>
+              <li>Draft & pilot screening questions; refine based on student feedback.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <div class="timeline-item card js-card">
+          <div class="timeline-bullet"></div>
+          <div class="timeline-label">Phase 3 – Years 1–4</div>
+          <div class="timeline-meta"><strong>4-year pilot</strong></div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Screen students yearly from age 9 to 12.</li>
+              <li>Link flagged students to the support network and follow-up.</li>
+              <li>Monitor and reassess risk as needed.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <div class="timeline-item card js-card">
+          <div class="timeline-bullet"></div>
+          <div class="timeline-label">Phase 4 – Ongoing</div>
+          <div class="timeline-meta"><strong>Impact validation</strong></div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Compare screened vs. non-screened cohorts in the same school.</li>
+              <li>Indicators: attendance, academic performance, behavioural incidents, dropout,
+                  and (where available) homelessness/shelter entry.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+      </div>
+
+      <div style="margin-top:0.9rem;" class="card-grid">
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Financial Plan – Pilot</div>
+            <div class="card-pill">Total $135,000</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Teacher training & materials – <strong>$5,000</strong></li>
+              <li>Digital tool & system – <strong>$10,000</strong></li>
+              <li>Evaluation (CRECS, OCDSB) – <strong>$20,000</strong></li>
+              <li>Navigator (Upstream/Geelong) – <strong>$100,000</strong></li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">City of Ottawa</span>
+              <span class="tag">Ministry of Education</span>
+              <span class="tag">OCDSB</span>
+              <span class="tag">Private partnerships</span>
+            </div>
+          </div>
+          <div class="card-hint">Click for breakdown</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section id="outcomes" class="section">
+      <div class="eyebrow">Impact</div>
+      <h2 class="section-title">From early identification to fewer youth in shelters</h2>
+      <p class="section-lead">
+        The EWSS Pathway delivers layered outcomes over time – starting inside classrooms, and ultimately
+        reducing youth homelessness across Ottawa.
+      </p>
+
+      <div class="card-grid">
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Short-term (in-school)</div>
+            <div class="card-pill">Year 1</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Earlier identification of mental-health distress.</li>
+              <li>Reduced classroom disruption and emotional escalation.</li>
+              <li>Timely, coordinated responses for students and families.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Medium-term (student & family stability)</div>
+            <div class="card-pill">Years 1–4</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Improved grades, attendance, and reduced dropouts.</li>
+              <li>Earlier stabilization of family conflict through mediation & counselling.</li>
+              <li>Stronger school attachment and sense of belonging.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Long-term (system-level)</div>
+            <div class="card-pill">5+ years</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Reduced pathways into youth homelessness and shelter entry.</li>
+              <li>Improved mental-health outcomes and family resilience.</li>
+              <li>Better preparation for employment & independent living through sustained school engagement.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUITY -->
+    <section id="equity" class="section">
+      <div class="eyebrow">Equity Lens</div>
+      <h2 class="section-title">Designed to work <em>with</em> marginalized youth, not watch over them</h2>
+      <p class="section-lead">
+        EWSS is not a surveillance tool. It is co-designed to be culturally safe, trauma-informed, and
+        accessible to the youth who face the highest risk of homelessness.
+      </p>
+
+      <div class="pill-row">
+        <button class="pill active" data-equity="newcomer">Newcomer & immigrant families</button>
+        <button class="pill" data-equity="indigenous">Indigenous & racialized youth</button>
+        <button class="pill" data-equity="lowincome">Low-income households</button>
+        <button class="pill" data-equity="disability">Youth with disabilities / neurodivergent</button>
+        <button class="pill" data-equity="language">Students facing language barriers</button>
+      </div>
+
+      <div id="equity-details" class="pill-details">
+        Tailored supports for families navigating a new country, including language-accessible screening,
+        translated communication, and trusted community partners that reflect cultural backgrounds.
+      </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section id="partners" class="section">
+      <div class="eyebrow">Ecosystem</div>
+      <h2 class="section-title">Who makes the EWSS Pathway possible?</h2>
+      <p class="section-lead">
+        EWSS stands on strong partnerships between schools, community agencies, and city-wide initiatives.
+      </p>
+
+      <div class="card-grid">
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">In-school</div>
+            <div class="card-pill">OCDSB</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Teachers & administrators – identify concerns and host screenings.</li>
+              <li>School social workers – frontline case management.</li>
+              <li>Psychologists – assessment & therapeutic interventions.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Community & housing partners</div>
+            <div class="card-pill">Wrap-around</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>BGC Ottawa – mentorship, recreation, community connection.</li>
+              <li>Youth Services Bureau, Operation Come Home – housing, outreach, crisis supports.</li>
+              <li>Crossroads / YouTurn – behavioural intervention and mentorship.</li>
+              <li>Voice Found – trauma-informed support for survivors of exploitation.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Research & evaluation</div>
+            <div class="card-pill">Evidence-based</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>CRECS & academic partners – design, factor analysis, and outcome evaluation.</li>
+              <li>Upstream / Geelong – navigator role and model mentorship.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+      </div>
+
+      <p class="small-text" style="margin-top:0.8rem;">
+        For the judged poster PDF: you can screenshot this “ecosystem” section or recreate it as a visual
+        journey map (similar to your prototype sketch) to show the flow from <strong>school</strong> →
+        <strong>pathway</strong> → <strong>community supports</strong>.
+      </p>
+    </section>
+  </main>
+</div>
+
+<script>
+  // Smooth scroll nav + active state
+  const navButtons = document.querySelectorAll(".nav-button");
+  const sections   = document.querySelectorAll("section");
+
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.dataset.target;
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+
+      window.scrollTo({
+        top: targetEl.offsetTop - 20,
+        behavior: "smooth"
+      });
+
+      navButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+
+  // Highlight section on scroll
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          sections.forEach(s => s.classList.remove("section--active"));
+          entry.target.classList.add("section--active");
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
+  sections.forEach(section => observer.observe(section));
+
+  // Expandable cards
+  document.querySelectorAll(".js-card").forEach(card => {
+    card.addEventListener("click", () => {
+      card.classList.toggle("card--expanded");
+    });
+  });
+
+  // Equity pill logic
+  const equityCopy = {
+    newcomer:
+      "Tailored supports for families navigating a new country, including translated materials, cultural brokers, and partnerships with newcomer-serving agencies so screenings feel safe and not punitive.",
+    indigenous:
+      "Co-design with Indigenous partners, culturally grounded supports, and explicit attention to historical trauma and ongoing colonial harms to avoid replicating surveillance and over-intervention.",
+    lowincome:
+      "Screening questions and referrals that recognize housing and income stress, plus direct links to income supports, food programs, and housing stabilization services.",
+    disability:
+      "Intentional inclusion of youth with disabilities and neurodivergent youth through adapted tools, flexible communication formats, and collaboration with special-education teams.",
+    language:
+      "Multiple language options, plain-language summaries for caregivers, and the use of interpreters and community connectors to ensure no family is left out due to language barriers."
+  };
+
+  const equityDetails = document.getElementById("equity-details");
+  document.querySelectorAll(".pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      equityDetails.textContent = equityCopy[pill.dataset.equity] || "";
+    });
+  });
+</script>
+</body>
+</html>
