@@ -4,8 +4,20 @@
   <meta charset="UTF-8" />
   <title>EWSS Pathway – Interactive Poster (Innovation+ Version)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons (Font Awesome) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-4oV48llHyBsOqFRF6c0DEcBRS9tE9OFtGlQiP1+1C3b2dvPzh2WN0tXAGCwxkzTog8afExzbdN1wG2vHpzHcZA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
   <style>
     :root {
       --bg: #050816;
@@ -13,6 +25,7 @@
       --accent: #ff8a3d;
       --accent-soft: rgba(255, 138, 61, 0.15);
       --accent-2: #43c6ff;
+      --accent-3: #ec4899;
       --text: #f9fafb;
       --muted: #cbd5f5;
       --card: #111827;
@@ -36,12 +49,23 @@
       overflow-x: hidden;
     }
 
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Animated background orbs */
     .orbs {
       position: fixed;
       inset: 0;
       overflow: hidden;
-      z-index: -1;
+      z-index: -2;
       pointer-events: none;
     }
     .orb {
@@ -87,6 +111,8 @@
       margin: 0 auto;
       padding: 1.5rem;
       gap: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
     @media (max-width: 900px) {
       .app {
@@ -112,6 +138,13 @@
       text-transform: uppercase;
       margin-bottom: 0.4rem;
       color: var(--accent-2);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .logo i {
+      font-size: 1.1rem;
+      color: var(--accent);
     }
     .subtitle {
       font-size: 0.8rem;
@@ -210,6 +243,21 @@
       opacity: 1;
     }
 
+    /* Wave reveal overlay */
+    section.reveal::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,138,61,0.16), transparent 65%);
+      transform: translateX(-100%);
+      transition: transform 0.8s ease-out;
+      pointer-events: none;
+      z-index: -1;
+    }
+    section.reveal.visible::after {
+      transform: translateX(0);
+    }
+
     .eyebrow {
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -221,11 +269,36 @@
       font-size: 1.3rem;
       margin-bottom: 0.4rem;
     }
+    .section-title em {
+      font-style: italic;
+      color: var(--accent-3);
+    }
     .section-lead {
       font-size: 0.9rem;
       color: var(--muted);
       margin-bottom: 0.8rem;
       line-height: 1.6;
+    }
+
+    /* Micro-orbs inside sections */
+    .micro-orb {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      opacity: 0.18;
+      animation: drift 14s infinite alternate ease-in-out;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .micro-orb--alt {
+      background: var(--accent-3);
+      animation-duration: 18s;
+    }
+    @keyframes drift {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(40px, -20px); }
     }
 
     /* Hero */
@@ -250,6 +323,9 @@
       border: 1px solid rgba(148,163,184,0.4);
       font-size: 0.7rem;
       margin-bottom: 0.6rem;
+    }
+    .hero-highlight i {
+      color: var(--accent-2);
     }
     .hero-title {
       font-size: 1.6rem;
@@ -302,6 +378,20 @@
       position: relative;
       z-index: 1;
     }
+    .stat-chip i {
+      color: var(--accent-2);
+    }
+
+    /* Story block */
+    .story-block {
+      background: rgba(15,23,42,0.96);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 0.9rem;
+      border: 1px dashed rgba(248,250,252,0.28);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
     /* Cards / interaction */
     .card-grid {
@@ -325,6 +415,24 @@
       border-color: var(--accent);
       box-shadow: 0 12px 35px rgba(15,23,42,0.6);
     }
+    /* Hover particle */
+    .card:hover::before {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      top: -10px;
+      left: 50%;
+      animation: floatUp 0.9s ease-out forwards;
+      opacity: 0.9;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, -25px); }
+    }
+
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -335,6 +443,13 @@
     .card-title {
       font-size: 0.9rem;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .card-title i {
+      color: var(--accent-2);
+      font-size: 0.9rem;
     }
     .card-pill {
       font-size: 0.65rem;
@@ -381,6 +496,12 @@
       background: rgba(15,23,42,0.95);
       cursor: pointer;
       transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .pill i {
+      font-size: 0.8rem;
     }
     .pill:hover {
       background: var(--accent-soft);
@@ -408,9 +529,10 @@
       margin-top: 0.6rem;
     }
     .timeline-item {
-      border-left: 2px solid rgba(148,163,184,0.6);
+      border-left: 2px solid rgba(148,163,184,0.3);
       padding-left: 0.75rem;
       position: relative;
+      overflow: hidden;
     }
     .timeline-bullet {
       width: 10px;
@@ -421,6 +543,7 @@
       left: -6px;
       top: 0.15rem;
       box-shadow: 0 0 0 8px rgba(255,138,61,0.18);
+      z-index: 1;
     }
     .timeline-label {
       font-size: 0.7rem;
@@ -433,6 +556,22 @@
       font-size: 0.75rem;
       color: var(--muted);
       margin-bottom: 0.3rem;
+    }
+
+    /* Animated timeline line fill */
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      top: 0;
+      width: 2px;
+      height: 0%;
+      background: var(--accent);
+      transition: height 0.8s ease-out;
+      z-index: 0;
+    }
+    .timeline-item.visible::before {
+      height: 100%;
     }
 
     .tag-row {
@@ -448,22 +587,19 @@
       background: rgba(15,23,42,0.96);
       border: 1px solid rgba(148,163,184,0.6);
       color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .tag i {
+      font-size: 0.7rem;
+      color: var(--accent-2);
     }
 
     .small-text {
       font-size: 0.75rem;
       color: var(--muted);
       line-height: 1.6;
-    }
-
-    .story-block {
-      background: rgba(15,23,42,0.96);
-      border-radius: var(--radius-md);
-      padding: 0.85rem 0.9rem;
-      border: 1px dashed rgba(248,250,252,0.28);
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.7;
     }
   </style>
 </head>
@@ -476,8 +612,11 @@
 
 <div class="app">
   <!-- SIDEBAR NAV -->
-  <aside class="sidebar">
-    <div class="logo">E Double I</div>
+  <aside class="sidebar reveal">
+    <div class="logo">
+      <i class="fa-solid fa-school"></i>
+      <span>E Double I</span>
+    </div>
     <div class="subtitle">
       Early Intervention Innovators<br/>
       Group 17 – Early Interventions & Shelter Diversion
@@ -490,34 +629,34 @@
 
     <nav class="nav">
       <button class="nav-button active" data-target="hero">
-        <span class="icon">🏠</span> Overview
+        <span class="icon"><i class="fa-solid fa-house"></i></span> Overview
       </button>
       <button class="nav-button" data-target="story">
-        <span class="icon">🎭</span> Liam’s Story
+        <span class="icon"><i class="fa-solid fa-mask"></i></span> Liam’s Story
       </button>
       <button class="nav-button" data-target="idea">
-        <span class="icon">💡</span> The Idea
+        <span class="icon"><i class="fa-solid fa-lightbulb"></i></span> The Idea
       </button>
       <button class="nav-button" data-target="how">
-        <span class="icon">🧭</span> Pathway
+        <span class="icon"><i class="fa-solid fa-route"></i></span> Pathway
       </button>
       <button class="nav-button" data-target="innovation">
-        <span class="icon">⚙️</span> Innovation+
+        <span class="icon"><i class="fa-solid fa-gears"></i></span> Innovation+
       </button>
       <button class="nav-button" data-target="families">
-        <span class="icon">👨‍👩‍👧</span> Families & Consent
+        <span class="icon"><i class="fa-solid fa-people-roof"></i></span> Families & Consent
       </button>
       <button class="nav-button" data-target="implementation">
-        <span class="icon">📅</span> Implementation
+        <span class="icon"><i class="fa-solid fa-calendar-check"></i></span> Implementation
       </button>
       <button class="nav-button" data-target="outcomes">
-        <span class="icon">📈</span> Outcomes & 5-Year Impact
+        <span class="icon"><i class="fa-solid fa-chart-line"></i></span> Outcomes & Impact
       </button>
       <button class="nav-button" data-target="equity">
-        <span class="icon">⚖️</span> Equity Lens
+        <span class="icon"><i class="fa-solid fa-scale-balanced"></i></span> Equity Lens
       </button>
       <button class="nav-button" data-target="partners">
-        <span class="icon">🤝</span> Partners & Sustainability
+        <span class="icon"><i class="fa-solid fa-handshake-angle"></i></span> Partners & Sustainability
       </button>
     </nav>
 
@@ -530,10 +669,14 @@
   <!-- MAIN CONTENT -->
   <main class="content">
     <!-- HERO -->
-    <section id="hero" class="section section--active">
+    <section id="hero" class="section reveal section--active">
+      <div class="micro-orb" style="top:24px; left:40px;"></div>
+      <div class="micro-orb micro-orb--alt" style="bottom:28px; right:60px;"></div>
+
       <div class="hero-grid">
         <div>
           <div class="hero-highlight">
+            <i class="fa-solid fa-house-chimney-crack"></i>
             <span>Preventing Youth Homelessness in Ottawa</span>
           </div>
           <h1 class="hero-title">
@@ -545,21 +688,23 @@
             respond quickly, and wrap support around students and families before crisis hits.
           </p>
         </div>
-        <div class="stat-card">
-          <div class="stat-number">40%</div>
+        <div class="stat-card reveal">
+          <div class="stat-number" data-target="40">0%</div>
           <div class="stat-label">
             of homeless youth in Canada had their first episode before age 16.<br/>
             <span style="font-size:0.75rem;">Our question: what if we had caught them at 10, 11, or 12 — in school?</span>
           </div>
           <div class="stat-chip">
-            🎯 Upstream / Geelong-inspired early-intervention model + Ottawa ecosystem
+            <i class="fa-solid fa-globe"></i>
+            <span>Upstream / Geelong-inspired early-intervention model + Ottawa ecosystem</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- STORY / EMOTIONAL HOOK -->
-    <section id="story" class="section">
+    <section id="story" class="section reveal">
+      <div class="micro-orb" style="top:18px; right:48px;"></div>
       <div class="eyebrow">Why this matters</div>
       <h2 class="section-title">Meet Liam – the moment before crisis</h2>
       <p class="section-lead">
@@ -583,7 +728,8 @@
     </section>
 
     <!-- IDEA -->
-    <section id="idea" class="section">
+    <section id="idea" class="section reveal">
+      <div class="micro-orb" style="bottom:22px; left:60px;"></div>
       <div class="eyebrow">The Idea</div>
       <h2 class="section-title">A school-based early-warning pathway, not just another program</h2>
       <p class="section-lead">
@@ -592,9 +738,9 @@
       </p>
 
       <div class="card-grid">
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Problem</div>
+            <div class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> Problem</div>
             <div class="card-pill">Silent escalation</div>
           </div>
           <div class="card-body">
@@ -604,9 +750,9 @@
           <div class="card-hint">Click to reveal</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Core solution</div>
+            <div class="card-title"><i class="fa-solid fa-lightbulb"></i> Core solution</div>
             <div class="card-pill">EWSS Pathway</div>
           </div>
           <div class="card-body">
@@ -617,9 +763,9 @@
           <div class="card-hint">Click to reveal</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Who it serves</div>
+            <div class="card-title"><i class="fa-solid fa-children"></i> Who it serves</div>
             <div class="card-pill">Youth 9–12 + families</div>
           </div>
           <div class="card-body">
@@ -629,9 +775,9 @@
           <div class="card-hint">Click to reveal</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Big objective</div>
+            <div class="card-title"><i class="fa-solid fa-bullseye"></i> Big objective</div>
             <div class="card-pill">Prevention, not triage</div>
           </div>
           <div class="card-body">
@@ -644,7 +790,8 @@
     </section>
 
     <!-- HOW IT WORKS -->
-    <section id="how" class="section">
+    <section id="how" class="section reveal">
+      <div class="micro-orb micro-orb--alt" style="top:20px; left:55%;"></div>
       <div class="eyebrow">Pathway</div>
       <h2 class="section-title">How the EWSS Pathway works</h2>
       <p class="section-lead">
@@ -652,9 +799,9 @@
       </p>
 
       <div class="card-grid">
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">1. Early mental-health screening</div>
+            <div class="card-title"><i class="fa-solid fa-magnifying-glass"></i> 1. Early mental-health screening</div>
             <div class="card-pill">Screen</div>
           </div>
           <div class="card-body">
@@ -667,14 +814,14 @@
           <div class="card-hint">Click for details</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">2. Referral pathway</div>
+            <div class="card-title"><i class="fa-solid fa-link"></i> 2. Referral pathway</div>
             <div class="card-pill">Link</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;margin-top:0.2rem;">
-              <li>Clear thresholds and scripts for when/how to refer students.</li>
+              <li>Clear thresholds and scripts for when/how to refer students (Green / Yellow / Red).</li>
               <li>Warm hand-offs to social workers, psychologists, and community partners.</li>
               <li>Family-inclusive processes that aim to reduce blame and increase collaboration.</li>
             </ul>
@@ -682,9 +829,9 @@
           <div class="card-hint">Click for details</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">3. Coordinated support network</div>
+            <div class="card-title"><i class="fa-solid fa-network-wired"></i> 3. Coordinated support network</div>
             <div class="card-pill">Wrap-around</div>
           </div>
           <div class="card-body">
@@ -701,7 +848,8 @@
     </section>
 
     <!-- INNOVATION+ SECTION -->
-    <section id="innovation" class="section">
+    <section id="innovation" class="section reveal">
+      <div class="micro-orb" style="top:20px; right:30px;"></div>
       <div class="eyebrow">Innovation+</div>
       <h2 class="section-title">What makes our EWSS model competition-ready</h2>
       <p class="section-lead">
@@ -711,9 +859,9 @@
 
       <div class="card-grid">
         <!-- Dashboard -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Digital EWSS Insights Dashboard</div>
+            <div class="card-title"><i class="fa-solid fa-display"></i> Digital EWSS Insights Dashboard</div>
             <div class="card-pill">Data in real-time</div>
           </div>
           <div class="card-body">
@@ -728,9 +876,9 @@
         </div>
 
         <!-- Youth connectors -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Youth Connectors</div>
+            <div class="card-title"><i class="fa-solid fa-people-arrows"></i> Youth Connectors</div>
             <div class="card-pill">By youth, for youth</div>
           </div>
           <div class="card-body">
@@ -744,9 +892,9 @@
         </div>
 
         <!-- Teacher toolkit -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Teacher Micro-Intervention Toolkit</div>
+            <div class="card-title"><i class="fa-solid fa-briefcase"></i> Teacher Micro-Intervention Toolkit</div>
             <div class="card-pill">Ready on Day 1</div>
           </div>
           <div class="card-body">
@@ -761,9 +909,9 @@
         </div>
 
         <!-- Predictive risk model -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Simple Predictive Risk Model</div>
+            <div class="card-title"><i class="fa-solid fa-chart-pie"></i> Simple Predictive Risk Model</div>
             <div class="card-pill">Evidence-based</div>
           </div>
           <div class="card-body">
@@ -779,7 +927,8 @@
     </section>
 
     <!-- FAMILIES & CONSENT -->
-    <section id="families" class="section">
+    <section id="families" class="section reveal">
+      <div class="micro-orb micro-orb--alt" style="top:22px; left:40px;"></div>
       <div class="eyebrow">Families & Consent</div>
       <h2 class="section-title">Trauma-informed consent and whole-family support</h2>
       <p class="section-lead">
@@ -788,9 +937,9 @@
 
       <div class="card-grid">
         <!-- Trauma-informed consent -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Trauma-Informed Consent Model</div>
+            <div class="card-title"><i class="fa-solid fa-shield-heart"></i> Trauma-Informed Consent Model</div>
             <div class="card-pill">Safe by design</div>
           </div>
           <div class="card-body">
@@ -805,9 +954,9 @@
         </div>
 
         <!-- Parent / caregiver support -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Parent & Caregiver Support Track</div>
+            <div class="card-title"><i class="fa-solid fa-people-roof"></i> Parent & Caregiver Support Track</div>
             <div class="card-pill">Whole household</div>
           </div>
           <div class="card-body">
@@ -821,9 +970,9 @@
         </div>
 
         <!-- Youth advisory -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Youth Advisory Circles</div>
+            <div class="card-title"><i class="fa-solid fa-circle-nodes"></i> Youth Advisory Circles</div>
             <div class="card-pill">Nothing about us without us</div>
           </div>
           <div class="card-body">
@@ -839,7 +988,8 @@
     </section>
 
     <!-- IMPLEMENTATION -->
-    <section id="implementation" class="section">
+    <section id="implementation" class="section reveal">
+      <div class="micro-orb" style="top:18px; right:60px;"></div>
       <div class="eyebrow">Implementation & Budget</div>
       <h2 class="section-title">From pilot to proof of impact</h2>
       <p class="section-lead">
@@ -847,7 +997,7 @@
       </p>
 
       <div class="timeline">
-        <div class="timeline-item card js-card">
+        <div class="timeline-item card js-card reveal">
           <div class="timeline-bullet"></div>
           <div class="timeline-label">Phase 1 – Months 1–3</div>
           <div class="timeline-meta"><strong>Approval & Initiation</strong></div>
@@ -861,7 +1011,7 @@
           <div class="card-hint">Click to expand</div>
         </div>
 
-        <div class="timeline-item card js-card">
+        <div class="timeline-item card js-card reveal">
           <div class="timeline-bullet"></div>
           <div class="timeline-label">Phase 2 – Month 4</div>
           <div class="timeline-meta"><strong>Survey & Tool Design</strong></div>
@@ -875,7 +1025,7 @@
           <div class="card-hint">Click to expand</div>
         </div>
 
-        <div class="timeline-item card js-card">
+        <div class="timeline-item card js-card reveal">
           <div class="timeline-bullet"></div>
           <div class="timeline-label">Phase 3 – Years 1–4</div>
           <div class="timeline-meta"><strong>4-year Pilot</strong></div>
@@ -890,7 +1040,7 @@
           <div class="card-hint">Click to expand</div>
         </div>
 
-        <div class="timeline-item card js-card">
+        <div class="timeline-item card js-card reveal">
           <div class="timeline-bullet"></div>
           <div class="timeline-label">Phase 4 – Ongoing</div>
           <div class="timeline-meta"><strong>Impact Validation</strong></div>
@@ -905,9 +1055,9 @@
       </div>
 
       <div style="margin-top:0.9rem;" class="card-grid">
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Pilot Budget – $135,000</div>
+            <div class="card-title"><i class="fa-solid fa-sack-dollar"></i> Pilot Budget – $135,000</div>
             <div class="card-pill">Lean & scalable</div>
           </div>
           <div class="card-body">
@@ -918,11 +1068,11 @@
               <li>Navigator / Upstream support + coordination – <strong>$100,000</strong></li>
             </ul>
             <div class="tag-row">
-              <span class="tag">City of Ottawa</span>
-              <span class="tag">Ministry of Education</span>
-              <span class="tag">OCDSB</span>
-              <span class="tag">Federal homelessness prevention</span>
-              <span class="tag">Private partners (RBC, TELUS, etc.)</span>
+              <span class="tag"><i class="fa-solid fa-city"></i> City of Ottawa</span>
+              <span class="tag"><i class="fa-solid fa-graduation-cap"></i> Ministry of Education</span>
+              <span class="tag"><i class="fa-solid fa-school-flag"></i> OCDSB</span>
+              <span class="tag"><i class="fa-solid fa-building-ngo"></i> Federal prevention funds</span>
+              <span class="tag"><i class="fa-solid fa-hand-holding-heart"></i> Private partners (RBC, TELUS)</span>
             </div>
           </div>
           <div class="card-hint">Click for breakdown</div>
@@ -931,7 +1081,8 @@
     </section>
 
     <!-- OUTCOMES & 5-YEAR IMPACT -->
-    <section id="outcomes" class="section">
+    <section id="outcomes" class="section reveal">
+      <div class="micro-orb" style="bottom:20px; left:46%;"></div>
       <div class="eyebrow">Impact</div>
       <h2 class="section-title">From early identification to fewer youth in shelters</h2>
       <p class="section-lead">
@@ -939,9 +1090,9 @@
       </p>
 
       <div class="card-grid">
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Short-term (Year 1)</div>
+            <div class="card-title"><i class="fa-solid fa-bolt"></i> Short-term (Year 1)</div>
             <div class="card-pill">In-school impact</div>
           </div>
           <div class="card-body">
@@ -954,9 +1105,9 @@
           <div class="card-hint">Click to expand</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Medium-term (Years 1–4)</div>
+            <div class="card-title"><i class="fa-solid fa-seedling"></i> Medium-term (Years 1–4)</div>
             <div class="card-pill">Student & family stability</div>
           </div>
           <div class="card-body">
@@ -969,9 +1120,9 @@
           <div class="card-hint">Click to expand</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Long-term (5+ years)</div>
+            <div class="card-title"><i class="fa-solid fa-star"></i> Long-term (5+ years)</div>
             <div class="card-pill">System-level change</div>
           </div>
           <div class="card-body">
@@ -985,9 +1136,9 @@
         </div>
 
         <!-- 5-year projection -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Five-Year Projection (Pilot Scenario)</div>
+            <div class="card-title"><i class="fa-solid fa-chart-line"></i> Five-Year Projection (Pilot Scenario)</div>
             <div class="card-pill">Illustrative</div>
           </div>
           <div class="card-body">
@@ -1007,7 +1158,8 @@
     </section>
 
     <!-- EQUITY -->
-    <section id="equity" class="section">
+    <section id="equity" class="section reveal">
+      <div class="micro-orb micro-orb--alt" style="top:16px; right:26px;"></div>
       <div class="eyebrow">Equity Lens</div>
       <h2 class="section-title">Designed with – not just for – marginalized youth</h2>
       <p class="section-lead">
@@ -1016,21 +1168,32 @@
       </p>
 
       <div class="pill-row">
-        <button class="pill active" data-equity="newcomer">Newcomer & immigrant families</button>
-        <button class="pill" data-equity="indigenous">Indigenous & racialized youth</button>
-        <button class="pill" data-equity="lowincome">Low-income households</button>
-        <button class="pill" data-equity="disability">Youth with disabilities / neurodivergent</button>
-        <button class="pill" data-equity="language">Students facing language barriers</button>
+        <button class="pill active" data-equity="newcomer">
+          <i class="fa-solid fa-earth-americas"></i> Newcomer & immigrant families
+        </button>
+        <button class="pill" data-equity="indigenous">
+          <i class="fa-solid fa-feather"></i> Indigenous & racialized youth
+        </button>
+        <button class="pill" data-equity="lowincome">
+          <i class="fa-solid fa-coins"></i> Low-income households
+        </button>
+        <button class="pill" data-equity="disability">
+          <i class="fa-solid fa-universal-access"></i> Youth with disabilities / neurodivergent
+        </button>
+        <button class="pill" data-equity="language">
+          <i class="fa-solid fa-language"></i> Students facing language barriers
+        </button>
       </div>
 
       <div id="equity-details" class="pill-details">
         Tailored supports for families navigating a new country, including translated screening materials, cultural
-        brokers, and partnerships with newcomer-serving agencies so tools feel supportive — never punitive.
+        brokers, and newcomer-serving partners so screenings feel supportive — never punitive.
       </div>
     </section>
 
     <!-- PARTNERS & SUSTAINABILITY -->
-    <section id="partners" class="section">
+    <section id="partners" class="section reveal">
+      <div class="micro-orb" style="bottom:22px; left:32px;"></div>
       <div class="eyebrow">Ecosystem & Sustainability</div>
       <h2 class="section-title">Who makes the EWSS Pathway possible – and how we sustain it</h2>
       <p class="section-lead">
@@ -1038,9 +1201,9 @@
       </p>
 
       <div class="card-grid">
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Schools & In-School Teams</div>
+            <div class="card-title"><i class="fa-solid fa-school-flag"></i> Schools & In-School Teams</div>
             <div class="card-pill">OCDSB</div>
           </div>
           <div class="card-body">
@@ -1053,9 +1216,9 @@
           <div class="card-hint">Click to expand</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Community & Housing Partners</div>
+            <div class="card-title"><i class="fa-solid fa-people-group"></i> Community & Housing Partners</div>
             <div class="card-pill">Wrap-around</div>
           </div>
           <div class="card-body">
@@ -1069,9 +1232,9 @@
           <div class="card-hint">Click to expand</div>
         </div>
 
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Research & Evaluation</div>
+            <div class="card-title"><i class="fa-solid fa-microscope"></i> Research & Evaluation</div>
             <div class="card-pill">Evidence-driven</div>
           </div>
           <div class="card-body">
@@ -1084,9 +1247,9 @@
         </div>
 
         <!-- Sustainability plan -->
-        <div class="card js-card">
+        <div class="card js-card reveal">
           <div class="card-header">
-            <div class="card-title">Sustainability & Scaling Plan</div>
+            <div class="card-title"><i class="fa-solid fa-leaf"></i> Sustainability & Scaling Plan</div>
             <div class="card-pill">Beyond the pilot</div>
           </div>
           <div class="card-body">
@@ -1104,6 +1267,10 @@
         For your judged PDF poster: screenshot this ecosystem section or replicate it as a visual journey map:
         <strong>school</strong> → <strong>EWSS pathway</strong> → <strong>community supports</strong> → 
         <strong>reduced youth homelessness</strong>.
+      </p>
+
+      <p class="small-text" style="margin-top:0.8rem; text-align:center; font-weight:600;">
+        “EWSS gives teachers the tools, students the support, and families the strength to prevent crisis before it begins.”
       </p>
     </section>
   </main>
@@ -1131,7 +1298,7 @@
   });
 
   // Highlight section on scroll
-  const observer = new IntersectionObserver(
+  const sectionObserver = new IntersectionObserver(
     entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1142,7 +1309,21 @@
     },
     { threshold: 0.35 }
   );
-  sections.forEach(section => observer.observe(section));
+  sections.forEach(section => sectionObserver.observe(section));
+
+  // Reveal animations (sections, cards, timeline items)
+  const revealEls = document.querySelectorAll(".reveal");
+  const revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.25 }
+  );
+  revealEls.forEach(el => revealObserver.observe(el));
 
   // Expandable cards
   document.querySelectorAll(".js-card").forEach(card => {
@@ -1173,6 +1354,30 @@
       equityDetails.textContent = equityCopy[pill.dataset.equity] || "";
     });
   });
+
+  // Animated stat counter
+  const statNum = document.querySelector(".stat-number");
+  let statStarted = false;
+
+  function animateStat(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !statStarted) {
+        statStarted = true;
+        const target = parseInt(statNum.dataset.target, 10) || 40;
+        let value = 0;
+        const interval = setInterval(() => {
+          value++;
+          statNum.textContent = value + "%";
+          if (value >= target) clearInterval(interval);
+        }, 35);
+      }
+    });
+  }
+
+  const statObserver = new IntersectionObserver(animateStat, { threshold: 0.6 });
+  if (statNum) {
+    statObserver.observe(statNum);
+  }
 </script>
 </body>
 </html>
