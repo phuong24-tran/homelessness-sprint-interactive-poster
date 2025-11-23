@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>EWSS Pathway – Interactive Poster</title>
+  <title>EWSS Pathway – Interactive Poster (Innovation+ Version)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -354,7 +354,7 @@
       transition: max-height 0.28s ease-out, opacity 0.25s ease-out, transform 0.25s ease-out;
     }
     .card--expanded .card-body {
-      max-height: 300px;
+      max-height: 350px;
       opacity: 1;
       transform: translateY(0);
     }
@@ -455,6 +455,16 @@
       color: var(--muted);
       line-height: 1.6;
     }
+
+    .story-block {
+      background: rgba(15,23,42,0.96);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 0.9rem;
+      border: 1px dashed rgba(248,250,252,0.28);
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
   </style>
 </head>
 <body>
@@ -482,29 +492,38 @@
       <button class="nav-button active" data-target="hero">
         <span class="icon">🏠</span> Overview
       </button>
+      <button class="nav-button" data-target="story">
+        <span class="icon">🎭</span> Liam’s Story
+      </button>
       <button class="nav-button" data-target="idea">
         <span class="icon">💡</span> The Idea
       </button>
       <button class="nav-button" data-target="how">
-        <span class="icon">🧭</span> How It Works
+        <span class="icon">🧭</span> Pathway
+      </button>
+      <button class="nav-button" data-target="innovation">
+        <span class="icon">⚙️</span> Innovation+
+      </button>
+      <button class="nav-button" data-target="families">
+        <span class="icon">👨‍👩‍👧</span> Families & Consent
       </button>
       <button class="nav-button" data-target="implementation">
-        <span class="icon">📅</span> Implementation & Budget
+        <span class="icon">📅</span> Implementation
       </button>
       <button class="nav-button" data-target="outcomes">
-        <span class="icon">📈</span> Outcomes
+        <span class="icon">📈</span> Outcomes & 5-Year Impact
       </button>
       <button class="nav-button" data-target="equity">
         <span class="icon">⚖️</span> Equity Lens
       </button>
       <button class="nav-button" data-target="partners">
-        <span class="icon">🤝</span> Partners
+        <span class="icon">🤝</span> Partners & Sustainability
       </button>
     </nav>
 
     <div class="nav-footer">
       Tip: click any card to expand details.  
-      Use this site live for interaction, then export key visuals into your PDF poster.
+      Use this live in your presentation + screenshot it for the PDF poster.
     </div>
   </aside>
 
@@ -521,55 +540,79 @@
             School-Based Early Warning Screening & Support (EWSS) Pathway
           </h1>
           <p class="hero-tagline">
-            Youth homelessness in Ottawa doesn’t begin at the shelter door — it begins in our classrooms.
-            EWSS uses early mental health screening, referral pathways, and coordinated supports to act
-            <strong>before</strong> crisis hits.
+            Youth homelessness doesn’t begin at the shelter door — it begins in our classrooms.
+            EWSS is a web-inspired, data-informed pathway that lets schools <strong>see distress early</strong>,
+            respond quickly, and wrap support around students and families before crisis hits.
           </p>
         </div>
         <div class="stat-card">
           <div class="stat-number">40%</div>
           <div class="stat-label">
-            of homeless youth in Canada experienced their first episode before age 16.<br/>
-            <span style="font-size:0.75rem;">Schools are a critical site for early detection and prevention.</span>
+            of homeless youth in Canada had their first episode before age 16.<br/>
+            <span style="font-size:0.75rem;">Our question: what if we had caught them at 10, 11, or 12 — in school?</span>
           </div>
           <div class="stat-chip">
-            🎯 Upstream / Geelong-inspired early-intervention model
+            🎯 Upstream / Geelong-inspired early-intervention model + Ottawa ecosystem
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- STORY / EMOTIONAL HOOK -->
+    <section id="story" class="section">
+      <div class="eyebrow">Why this matters</div>
+      <h2 class="section-title">Meet Liam – the moment before crisis</h2>
+      <p class="section-lead">
+        Before systems fail, there is always a moment when someone could have noticed.
+        EWSS is designed to act in that moment.
+      </p>
+      <div class="story-block">
+        <strong>Imagine Liam.</strong> He’s 11.  
+        This year his grades drop, his hoodie is always up, and he’s suddenly “the disruptive kid”.  
+        His teacher sees the change but is already juggling 27 students and doesn’t know what to do beyond
+        sending one more behaviour note home. At home, money is tight, conflict is rising, and no one wants
+        another phone call from the school.  
+        <br/><br/>
+        Six months later, Liam’s family is on the brink of losing housing. He enters the youth homelessness
+        system — a system that is incredibly hard and expensive to exit.  
+        <br/><br/>
+        <strong>EWSS asks a different question:</strong>  
+        “What if we had one simple, coordinated pathway in schools that flagged Liam’s distress early, connected
+        his family to support, and stabilised things <em>before</em> he needed a shelter bed?”
       </div>
     </section>
 
     <!-- IDEA -->
     <section id="idea" class="section">
       <div class="eyebrow">The Idea</div>
-      <h2 class="section-title">Why EWSS? A school-based early-warning pathway</h2>
+      <h2 class="section-title">A school-based early-warning pathway, not just another program</h2>
       <p class="section-lead">
         The EWSS Pathway identifies distress in students aged 9–12, connects them with timely supports,
-        and stabilizes family conflict before it escalates into school disengagement or homelessness.
+        and stabilizes family conflict before it escalates into disengagement or homelessness.
       </p>
 
       <div class="card-grid">
         <div class="card js-card">
           <div class="card-header">
             <div class="card-title">Problem</div>
-            <div class="card-pill">Before the shelter</div>
+            <div class="card-pill">Silent escalation</div>
           </div>
           <div class="card-body">
-            Teachers often notice early warning signs—absenteeism, mood changes, conflict—but there is
-            no coordinated mechanism in Ottawa to respond before risk escalates into crisis or shelter entry.
+            Teachers and peers see early warning signs — absenteeism, mood shifts, conflict — but Ottawa has no
+            coordinated, school-embedded pathway to respond <em>before</em> risk turns into crisis or shelter entry.
           </div>
           <div class="card-hint">Click to reveal</div>
         </div>
 
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Solution</div>
+            <div class="card-title">Core solution</div>
             <div class="card-pill">EWSS Pathway</div>
           </div>
           <div class="card-body">
-            A structured screening and support pathway embedded in schools, informed by the
-            Upstream/Geelong framework, that flags risk early, routes students to appropriate services,
-            and coordinates follow-up across school and community partners.
+            A structured early-warning, referral, and support pathway embedded in schools, informed by the
+            Upstream/Geelong framework. It flags risk early, routes students to appropriate services, and coordinates
+            follow-up across school and community partners.
           </div>
           <div class="card-hint">Click to reveal</div>
         </div>
@@ -577,23 +620,23 @@
         <div class="card js-card">
           <div class="card-header">
             <div class="card-title">Who it serves</div>
-            <div class="card-pill">Youth 9–12 & families</div>
+            <div class="card-pill">Youth 9–12 + families</div>
           </div>
           <div class="card-body">
-            Students aged 9–12 in Ottawa public schools and their caregivers, including those facing
-            mental health distress, family conflict, financial instability, and school disengagement.
+            Students aged 9–12 in Ottawa public schools and their caregivers – especially those living with mental
+            health distress, family conflict, income stress, and school disengagement risk.
           </div>
           <div class="card-hint">Click to reveal</div>
         </div>
 
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Objective</div>
-            <div class="card-pill">Prevention</div>
+            <div class="card-title">Big objective</div>
+            <div class="card-pill">Prevention, not triage</div>
           </div>
           <div class="card-body">
-            Identify early signs of distress, intervene before behavioural or mental-health issues escalate,
-            and coordinate supports to reduce pathways into youth homelessness and shelters.
+            Catch distress early, stabilise families sooner, and reduce the number of youth whose first experience
+            of homelessness happens before age 16.
           </div>
           <div class="card-hint">Click to reveal</div>
         </div>
@@ -605,8 +648,7 @@
       <div class="eyebrow">Pathway</div>
       <h2 class="section-title">How the EWSS Pathway works</h2>
       <p class="section-lead">
-        Three core components work together as a continuous pathway from early detection to
-        coordinated support.
+        Three core components form a continuous pathway from early detection to coordinated support.
       </p>
 
       <div class="card-grid">
@@ -617,9 +659,9 @@
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;margin-top:0.2rem;">
-              <li>Brief, validated screening tools for students aged 9–12.</li>
-              <li>Run periodically in class with clear consent & confidentiality protocols.</li>
-              <li>Flags early signs of distress before disengagement or dropout.</li>
+              <li>Brief, trauma-informed, culturally safe screening tools for students aged 9–12.</li>
+              <li>Run annually in class with clear consent & confidentiality protocols.</li>
+              <li>Flags distress early, before disengagement or dropout.</li>
             </ul>
           </div>
           <div class="card-hint">Click for details</div>
@@ -632,9 +674,9 @@
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;margin-top:0.2rem;">
-              <li>Clear thresholds for when and how to refer students.</li>
-              <li>Warm hand-offs to school social workers, psychologists, and community partners.</li>
-              <li>Family-inclusive processes to stabilize conflict early.</li>
+              <li>Clear thresholds and scripts for when/how to refer students.</li>
+              <li>Warm hand-offs to social workers, psychologists, and community partners.</li>
+              <li>Family-inclusive processes that aim to reduce blame and increase collaboration.</li>
             </ul>
           </div>
           <div class="card-hint">Click for details</div>
@@ -646,16 +688,152 @@
             <div class="card-pill">Wrap-around</div>
           </div>
           <div class="card-body">
-            <p>
-              A network of community partners provides wrap-around support:
-            </p>
+            <p>A network of partners supports students and families:</p>
             <ul style="padding-left:1rem;margin-top:0.2rem;">
-              <li>School social workers & psychologists – frontline & clinical support.</li>
-              <li>BGC Ottawa, YSB, Crossroads/YouTurn, Voice Found, Operation Come Home.</li>
-              <li>Family mediation, tutoring, housing & employment supports.</li>
+              <li>School-based social workers & psychologists.</li>
+              <li>BGC Ottawa, Youth Services Bureau, Operation Come Home.</li>
+              <li>Crossroads/YouTurn, Voice Found, housing & employment supports.</li>
             </ul>
           </div>
           <div class="card-hint">Click for details</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INNOVATION+ SECTION -->
+    <section id="innovation" class="section">
+      <div class="eyebrow">Innovation+</div>
+      <h2 class="section-title">What makes our EWSS model competition-ready</h2>
+      <p class="section-lead">
+        Beyond a pathway, we add digital tools, youth leadership, teacher support, and predictive insights that make
+        EWSS stand out among 30+ teams — and scalable across Ottawa.
+      </p>
+
+      <div class="card-grid">
+        <!-- Dashboard -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Digital EWSS Insights Dashboard</div>
+            <div class="card-pill">Data in real-time</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Shows number of students screened and risk tiers (Green/Yellow/Red).</li>
+              <li>Tracks trends by grade, classroom, and time of year.</li>
+              <li>Provides equity breakdown (anonymous) to highlight where support is lacking.</li>
+              <li>Helps principals and social workers plan resources proactively instead of reacting to crisis.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <!-- Youth connectors -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Youth Connectors</div>
+            <div class="card-pill">By youth, for youth</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Part-time paid youth mentors (older students or youth leaders) trained to walk alongside flagged students.</li>
+              <li>Reduce stigma, build trust, and make supports feel less “clinical”.</li>
+              <li>Create meaningful youth employment and leadership opportunities.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <!-- Teacher toolkit -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Teacher Micro-Intervention Toolkit</div>
+            <div class="card-pill">Ready on Day 1</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Short grounding and de-escalation activities.</li>
+              <li>Conversation scripts for talking with students and caregivers.</li>
+              <li>Mini group activities to build belonging in the classroom.</li>
+              <li>One-page “what to do when EWSS flags a student” guide.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <!-- Predictive risk model -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Simple Predictive Risk Model</div>
+            <div class="card-pill">Evidence-based</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>3–5 key factors (e.g., attendance, emotional distress, conflict, prior involvement with services).</li>
+              <li>Weighted scoring creates Green/Yellow/Red risk tiers.</li>
+              <li>Allows early pattern detection instead of waiting for obvious crisis signs.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILIES & CONSENT -->
+    <section id="families" class="section">
+      <div class="eyebrow">Families & Consent</div>
+      <h2 class="section-title">Trauma-informed consent and whole-family support</h2>
+      <p class="section-lead">
+        EWSS is designed with families, not done to them. Ethics, trust, and cultural safety are built into the model.
+      </p>
+
+      <div class="card-grid">
+        <!-- Trauma-informed consent -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Trauma-Informed Consent Model</div>
+            <div class="card-pill">Safe by design</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Plain-language consent forms, translated into key community languages.</li>
+              <li>Short explainer video for caregivers on what EWSS is (and what it is not).</li>
+              <li>Clear explanation of confidentiality, data use, and right to opt out.</li>
+              <li>Options for youth to share concerns privately with trusted adults.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <!-- Parent / caregiver support -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Parent & Caregiver Support Track</div>
+            <div class="card-pill">Whole household</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Monthly workshops on communication, conflict, and stress management.</li>
+              <li>Rapid referrals to housing stabilization, income support, and food programs.</li>
+              <li>Newcomer-specific support with navigation of Canadian systems.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <!-- Youth advisory -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Youth Advisory Circles</div>
+            <div class="card-pill">Nothing about us without us</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>8–10 students per pilot school provide feedback on screening questions and materials.</li>
+              <li>Help ensure tools feel respectful, relevant, and not like surveillance.</li>
+              <li>Build youth agency in shaping supports meant for them.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
         </div>
       </div>
     </section>
@@ -665,8 +843,7 @@
       <div class="eyebrow">Implementation & Budget</div>
       <h2 class="section-title">From pilot to proof of impact</h2>
       <p class="section-lead">
-        A four-phase pilot with the Ottawa-Carleton District School Board (OCDSB) and Upstream/Geelong
-        mentorship, backed by a modest budget.
+        A four-phase pilot with OCDSB and Upstream/Geelong mentorship, backed by a targeted budget and clear roles.
       </p>
 
       <div class="timeline">
@@ -676,9 +853,9 @@
           <div class="timeline-meta"><strong>Approval & Initiation</strong></div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Secure OCDSB ethics approval, anonymity and data-protection mechanisms.</li>
-              <li>Formal mentorship link with Upstream/Geelong.</li>
-              <li>Select pilot school & ~100 students for initial cohort.</li>
+              <li>Secure OCDSB ethics approval; confirm data protection & privacy protocols.</li>
+              <li>Create trauma-informed, multi-language consent materials.</li>
+              <li>Select one pilot school (~100 students) and establish youth advisory circle.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -687,12 +864,12 @@
         <div class="timeline-item card js-card">
           <div class="timeline-bullet"></div>
           <div class="timeline-label">Phase 2 – Month 4</div>
-          <div class="timeline-meta"><strong>Survey & tool design</strong></div>
+          <div class="timeline-meta"><strong>Survey & Tool Design</strong></div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Literature review & Ottawa-specific data from BGC, YSB, Crossroads, etc.</li>
-              <li>Exploratory Factor Analysis to identify risk clusters.</li>
-              <li>Draft & pilot screening questions; refine based on student feedback.</li>
+              <li>Co-design screening questions with educators, youth, and community partners.</li>
+              <li>Conduct factor analysis to identify key risk clusters and weightings.</li>
+              <li>Design prototype of the digital EWSS dashboard.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -701,12 +878,13 @@
         <div class="timeline-item card js-card">
           <div class="timeline-bullet"></div>
           <div class="timeline-label">Phase 3 – Years 1–4</div>
-          <div class="timeline-meta"><strong>4-year pilot</strong></div>
+          <div class="timeline-meta"><strong>4-year Pilot</strong></div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Screen students yearly from age 9 to 12.</li>
-              <li>Link flagged students to the support network and follow-up.</li>
-              <li>Monitor and reassess risk as needed.</li>
+              <li>Screen students annually from age 9 to 12.</li>
+              <li>Activate referral pathway and Youth Connectors for flagged students.</li>
+              <li>Deploy teacher toolkit and family support track.</li>
+              <li>Capture dashboard data to monitor trends and equity gaps.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -715,12 +893,11 @@
         <div class="timeline-item card js-card">
           <div class="timeline-bullet"></div>
           <div class="timeline-label">Phase 4 – Ongoing</div>
-          <div class="timeline-meta"><strong>Impact validation</strong></div>
+          <div class="timeline-meta"><strong>Impact Validation</strong></div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Compare screened vs. non-screened cohorts in the same school.</li>
-              <li>Indicators: attendance, academic performance, behavioural incidents, dropout,
-                  and (where available) homelessness/shelter entry.</li>
+              <li>Compare EWSS students to non-EWSS peers on attendance, grades, behaviour, and where ethical, homelessness/shelter contacts.</li>
+              <li>Report outcomes to funders, school boards, and community partners to scale the model.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -730,21 +907,22 @@
       <div style="margin-top:0.9rem;" class="card-grid">
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Financial Plan – Pilot</div>
-            <div class="card-pill">Total $135,000</div>
+            <div class="card-title">Pilot Budget – $135,000</div>
+            <div class="card-pill">Lean & scalable</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Teacher training & materials – <strong>$5,000</strong></li>
-              <li>Digital tool & system – <strong>$10,000</strong></li>
+              <li>Teacher training & toolkit – <strong>$5,000</strong></li>
+              <li>Digital dashboard & survey tools – <strong>$10,000</strong></li>
               <li>Evaluation (CRECS, OCDSB) – <strong>$20,000</strong></li>
-              <li>Navigator (Upstream/Geelong) – <strong>$100,000</strong></li>
+              <li>Navigator / Upstream support + coordination – <strong>$100,000</strong></li>
             </ul>
             <div class="tag-row">
               <span class="tag">City of Ottawa</span>
               <span class="tag">Ministry of Education</span>
               <span class="tag">OCDSB</span>
-              <span class="tag">Private partnerships</span>
+              <span class="tag">Federal homelessness prevention</span>
+              <span class="tag">Private partners (RBC, TELUS, etc.)</span>
             </div>
           </div>
           <div class="card-hint">Click for breakdown</div>
@@ -752,26 +930,25 @@
       </div>
     </section>
 
-    <!-- OUTCOMES -->
+    <!-- OUTCOMES & 5-YEAR IMPACT -->
     <section id="outcomes" class="section">
       <div class="eyebrow">Impact</div>
       <h2 class="section-title">From early identification to fewer youth in shelters</h2>
       <p class="section-lead">
-        The EWSS Pathway delivers layered outcomes over time – starting inside classrooms, and ultimately
-        reducing youth homelessness across Ottawa.
+        EWSS generates layered outcomes over time – from classroom climate today to reduced homelessness in five years.
       </p>
 
       <div class="card-grid">
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Short-term (in-school)</div>
-            <div class="card-pill">Year 1</div>
+            <div class="card-title">Short-term (Year 1)</div>
+            <div class="card-pill">In-school impact</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Earlier identification of mental-health distress.</li>
-              <li>Reduced classroom disruption and emotional escalation.</li>
-              <li>Timely, coordinated responses for students and families.</li>
+              <li>Earlier identification of mental-health and family stress.</li>
+              <li>Faster, coordinated responses among teachers, social workers, and youth connectors.</li>
+              <li>Reduced classroom disruption; increased sense of safety and support.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -779,14 +956,14 @@
 
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Medium-term (student & family stability)</div>
-            <div class="card-pill">Years 1–4</div>
+            <div class="card-title">Medium-term (Years 1–4)</div>
+            <div class="card-pill">Student & family stability</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Improved grades, attendance, and reduced dropouts.</li>
-              <li>Earlier stabilization of family conflict through mediation & counselling.</li>
-              <li>Stronger school attachment and sense of belonging.</li>
+              <li>Improved attendance and academic performance.</li>
+              <li>Stabilised family conflict through mediation and practical supports.</li>
+              <li>Stronger school attachment and belonging; reduced suspensions and dropouts.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -794,14 +971,34 @@
 
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Long-term (system-level)</div>
-            <div class="card-pill">5+ years</div>
+            <div class="card-title">Long-term (5+ years)</div>
+            <div class="card-pill">System-level change</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>Reduced pathways into youth homelessness and shelter entry.</li>
-              <li>Improved mental-health outcomes and family resilience.</li>
-              <li>Better preparation for employment & independent living through sustained school engagement.</li>
+              <li>Fewer youth entering homelessness or shelter systems.</li>
+              <li>Higher graduation rates and better employment readiness.</li>
+              <li>Reduced long-term public costs of homelessness (justice, health, housing).</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <!-- 5-year projection -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Five-Year Projection (Pilot Scenario)</div>
+            <div class="card-pill">Illustrative</div>
+          </div>
+          <div class="card-body">
+            <p>
+              If we screen 300 students per year and effectively support even 10% of those at elevated risk,
+              that’s <strong>30 students per year</strong> diverted from deeper crisis. Over five years:
+            </p>
+            <ul style="padding-left:1rem;margin-top:0.2rem;">
+              <li><strong>150 students</strong> with earlier support and stronger attachment to school.</li>
+              <li>Dozens of potential shelter episodes prevented or shortened.</li>
+              <li>Significant savings in crisis-response costs – and incalculable benefits in human potential.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -812,10 +1009,10 @@
     <!-- EQUITY -->
     <section id="equity" class="section">
       <div class="eyebrow">Equity Lens</div>
-      <h2 class="section-title">Designed to work <em>with</em> marginalized youth, not watch over them</h2>
+      <h2 class="section-title">Designed with – not just for – marginalized youth</h2>
       <p class="section-lead">
-        EWSS is not a surveillance tool. It is co-designed to be culturally safe, trauma-informed, and
-        accessible to the youth who face the highest risk of homelessness.
+        EWSS is not surveillance; it is a safety net. It is co-designed to be culturally safe, trauma-informed,
+        and accessible to youth who face the highest risk of homelessness.
       </p>
 
       <div class="pill-row">
@@ -827,30 +1024,30 @@
       </div>
 
       <div id="equity-details" class="pill-details">
-        Tailored supports for families navigating a new country, including language-accessible screening,
-        translated communication, and trusted community partners that reflect cultural backgrounds.
+        Tailored supports for families navigating a new country, including translated screening materials, cultural
+        brokers, and partnerships with newcomer-serving agencies so tools feel supportive — never punitive.
       </div>
     </section>
 
-    <!-- PARTNERS -->
+    <!-- PARTNERS & SUSTAINABILITY -->
     <section id="partners" class="section">
-      <div class="eyebrow">Ecosystem</div>
-      <h2 class="section-title">Who makes the EWSS Pathway possible?</h2>
+      <div class="eyebrow">Ecosystem & Sustainability</div>
+      <h2 class="section-title">Who makes the EWSS Pathway possible – and how we sustain it</h2>
       <p class="section-lead">
-        EWSS stands on strong partnerships between schools, community agencies, and city-wide initiatives.
+        EWSS stands on strong partnerships and a realistic sustainability plan that makes long-term scale feasible.
       </p>
 
       <div class="card-grid">
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">In-school</div>
+            <div class="card-title">Schools & In-School Teams</div>
             <div class="card-pill">OCDSB</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
               <li>Teachers & administrators – identify concerns and host screenings.</li>
-              <li>School social workers – frontline case management.</li>
-              <li>Psychologists – assessment & therapeutic interventions.</li>
+              <li>School social workers – frontline case management and family support.</li>
+              <li>Psychologists – assessment and therapeutic interventions.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -858,15 +1055,15 @@
 
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Community & housing partners</div>
+            <div class="card-title">Community & Housing Partners</div>
             <div class="card-pill">Wrap-around</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
-              <li>BGC Ottawa – mentorship, recreation, community connection.</li>
+              <li>BGC Ottawa – mentorship, recreation, and community connection.</li>
               <li>Youth Services Bureau, Operation Come Home – housing, outreach, crisis supports.</li>
               <li>Crossroads / YouTurn – behavioural intervention and mentorship.</li>
-              <li>Voice Found – trauma-informed support for survivors of exploitation.</li>
+              <li>Voice Found – trauma-informed supports for survivors of exploitation.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -874,13 +1071,29 @@
 
         <div class="card js-card">
           <div class="card-header">
-            <div class="card-title">Research & evaluation</div>
-            <div class="card-pill">Evidence-based</div>
+            <div class="card-title">Research & Evaluation</div>
+            <div class="card-pill">Evidence-driven</div>
           </div>
           <div class="card-body">
             <ul style="padding-left:1rem;">
               <li>CRECS & academic partners – design, factor analysis, and outcome evaluation.</li>
-              <li>Upstream / Geelong – navigator role and model mentorship.</li>
+              <li>Upstream / Geelong – navigator role, model mentorship, and knowledge transfer.</li>
+            </ul>
+          </div>
+          <div class="card-hint">Click to expand</div>
+        </div>
+
+        <!-- Sustainability plan -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-title">Sustainability & Scaling Plan</div>
+            <div class="card-pill">Beyond the pilot</div>
+          </div>
+          <div class="card-body">
+            <ul style="padding-left:1rem;">
+              <li>Short term: fund pilot through City of Ottawa, Ministry of Education, and targeted grants.</li>
+              <li>Medium term: integrate EWSS into school board budgets as a core prevention tool.</li>
+              <li>Long term: scale to additional schools using the dashboard, toolkit, and validated risk model.</li>
             </ul>
           </div>
           <div class="card-hint">Click to expand</div>
@@ -888,9 +1101,9 @@
       </div>
 
       <p class="small-text" style="margin-top:0.8rem;">
-        For the judged poster PDF: you can screenshot this “ecosystem” section or recreate it as a visual
-        journey map (similar to your prototype sketch) to show the flow from <strong>school</strong> →
-        <strong>pathway</strong> → <strong>community supports</strong>.
+        For your judged PDF poster: screenshot this ecosystem section or replicate it as a visual journey map:
+        <strong>school</strong> → <strong>EWSS pathway</strong> → <strong>community supports</strong> → 
+        <strong>reduced youth homelessness</strong>.
       </p>
     </section>
   </main>
@@ -941,15 +1154,15 @@
   // Equity pill logic
   const equityCopy = {
     newcomer:
-      "Tailored supports for families navigating a new country, including translated materials, cultural brokers, and partnerships with newcomer-serving agencies so screenings feel safe and not punitive.",
+      "Tailored supports for families navigating a new country, including translated materials, cultural brokers, and newcomer-serving partners so screenings feel supportive, not punitive.",
     indigenous:
-      "Co-design with Indigenous partners, culturally grounded supports, and explicit attention to historical trauma and ongoing colonial harms to avoid replicating surveillance and over-intervention.",
+      "Co-design with Indigenous partners, culturally grounded supports, and explicit attention to historical and ongoing colonial harms to avoid replicating surveillance and over-intervention.",
     lowincome:
-      "Screening questions and referrals that recognize housing and income stress, plus direct links to income supports, food programs, and housing stabilization services.",
+      "Screening and referrals that recognise housing and income stress, plus direct links to income supports, food programs, and housing stabilisation services.",
     disability:
       "Intentional inclusion of youth with disabilities and neurodivergent youth through adapted tools, flexible communication formats, and collaboration with special-education teams.",
     language:
-      "Multiple language options, plain-language summaries for caregivers, and the use of interpreters and community connectors to ensure no family is left out due to language barriers."
+      "Multiple language options, plain-language summaries, and interpreters to ensure no family is excluded due to language barriers."
   };
 
   const equityDetails = document.getElementById("equity-details");
